@@ -3,13 +3,15 @@ require 'dotenv/load'
 include Facebook::Messenger
 # NOTE: ENV variables should be set directly in terminal for testing on localhost
 
-Facebook::Messenger.configure do |config|
-  config.access_token = ENV['ACCESS_TOKEN']
-  config.verify_token = ENV['VERIFY_TOKEN']
-end
+# Facebook::Messenger.configure do |config|
+#   config.access_token = ENV['ACCESS_TOKEN']
+#   config.verify_token = ENV['VERIFY_TOKEN']
+# end
+puts "ENV['ACCESS_TOKEN']: #{ENV['ACCESS_TOKEN']}"
  
 # Subcribe bot to your page
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+
 
 def wait_for_user_input
   Bot.on :message do |message|
