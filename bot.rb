@@ -1,15 +1,10 @@
 require 'facebook/messenger'
 require 'dotenv/load'
 include Facebook::Messenger
-# NOTE: ENV variables should be set directly in terminal for testing on localhost
 
-# Facebook::Messenger.configure do |config|
-#   config.access_token = ENV['ACCESS_TOKEN']
-#   config.verify_token = ENV['VERIFY_TOKEN']
-# end
 puts "ENV['ACCESS_TOKEN']: #{ENV['ACCESS_TOKEN']}"
  
-# Subcribe bot to your page
+
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 
@@ -80,20 +75,13 @@ def wait_for_user_input
         message.reply(text: IDIOMS[:thanks])
       when /\wou are the best\b/
         message.reply(text: IDIOMS[:the_best])
-      when /\wfamous last words\b/
+      when /\slast words\b/
         message.reply(text: IDIOMS[:last_words])
       else
         message.reply(text: IDIOMS[:book_choice_respond])
-        # show_replies_menu(MENU_REPLIES)
     end
   end
 end
-
-# def show_apology_and_reply_options
-#   Bot.on :message do |message|
-#     show_replies_menu(message.sender['id'], MENU_REPLIES)
-#   end 
-# end
 
 
 IDIOMS = {
@@ -118,66 +106,16 @@ IDIOMS = {
   last_words: "And so we beat on. Boats against the current. Borne back ceaselessly into the chats."
 }
 
-MENU_REPLIES = [
-  {
-    content_type: 'text',
-    title: 'Got any advice?',
-    payload: 'ADVICE'
-    },
-  {
-    content_type: 'text',
-    title: 'Say something pretty.',
-    payload: 'PRETTY'
-  },
-  {
-    content_type: 'text',
-    title: 'Can I repeat the past?',
-    payload: 'REPEAT_PAST'
-  }
-]
-
-# set call to action button when user contacts bot for first time
-# Facebook::Messenger::Thread.set({
-#   setting_type: 'call_to_actions',
-#   thread_state: 'new_thread',
-#   call_to_actions: [
-#     {
-#       payload: 'START'
-#     }
-#   ]
-#   }, access_token: ENV['ACCESS_TOKEN'])
-
-# Facebook::Messenger::Thread.set({
-#   setting_type: 'call_to_actions',
-#   thread_state: 'existing_thread',
-#   call_to_actions: [
-#     {
-#       type: 'postback',
-#       title: 'The Great Gatsby',
-#       payload: 'GREAT GATSBY'
-#     },
-#     {
-#       type: 'postback',
-#       title: 'Tender Is The Night',
-#       payload: 'TENDER_NIGHT'
-#     },
-#     {
-#       type: 'postback',
-#       title: 'This Side of Paradise',
-#       payload: 'SIDE_PARADISE'
-#     }
-#   ]
-#   }, access_token: ENV['ACCESS_TOKEN'])
 
 Bot.on :postback do |postback|
   sender_id = postback.sender['id']
   case postback.payload
   when 'GREAT_GATSBY'
-    text = "You chose GG"
+    text = "Nice, I like that one, too. How can I help you today?"
   when 'TENDER_NIGHT'
-    text = "You chose TITN"
+    text = "Nice, I like that one, too. How can I help you today?"
   when 'SIDE_PARADISE'
-    text = "You chose TSOP"
+    text = "Nice, I like that one, too. How can I help you today?"
   end
 
   postback.reply(
@@ -185,20 +123,5 @@ Bot.on :postback do |postback|
   )
 end 
 
-# def say(recipient_id, text, quick_replies = nil)
-#   message_options = {
-#   recipient: { id: recipient_id },
-#   message: { text: text }
-#   }
-#   if quick_replies
-#     message_options[:message][:quick_replies] = quick_replies
-#   end
-#   Bot.deliver(message_options, access_token: ENV['ACCESS_TOKEN'])
-# end
-
-# def show_replies_menu(quick_replies)
-#   say(id, IDIOMS[:not_up_to_standards], quick_replies)
-#   wait_for_user_input 
-# end
 
 wait_for_user_input
