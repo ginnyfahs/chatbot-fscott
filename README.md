@@ -6,5 +6,7 @@ I built Chatbot F Scott because I wanted to play with the expectations we have w
 Watch a live demo of Chatbot F Scott here:
 https://www.youtube.com/watch?v=W9YNoSZjsKI&feature=youtu.be
 
+[![alt text](https://raw.githubusercontent.com/ginnyfahs/chatbot-fscott/master/images/youtube.png)](https://www.youtube.com/watch?v=W9YNoSZjsKI&feature=youtu.be)
+
 ![cf-github](https://user-images.githubusercontent.com/26640476/29844849-8f5b79b0-8cc5-11e7-93e4-0a17ade8e3f7.png)
 
