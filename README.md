@@ -7,3 +7,4 @@ Watch a live demo of Chatbot F Scott here:
 
 [![alt text](https://raw.githubusercontent.com/ginnyfahs/chatbot-fscott/master/images/youtube.png)](https://www.youtube.com/watch?v=W9YNoSZjsKI&feature=youtu.be)
 
+Update: Chatbot F Scott now supports purchases of his books on Amazon via persistent chat menu!
