@@ -7,6 +7,29 @@ puts "ENV['ACCESS_TOKEN']: #{ENV['ACCESS_TOKEN']}"
 
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
+Facebook::Messenger::Profile.set({
+  get_started: {
+    payload: 'GET_STARTED_PAYLOAD'
+  }
+  }, access_token: ENV['ACCESS_TOKEN'])
+
+Facebook::Messenger::Profile.set({
+  persistent_menu: [
+    {
+      locale: 'default',
+      composer_input_disabled: false,
+      call_to_actions: [
+            {
+            title: 'Buy a book!',
+            type: 'web_url',
+            url: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=f+scott+fitzgerald",
+            webview_height_ratio: 'full'
+            }
+      ]
+    }
+  ]
+}, access_token: ENV["ACCESS_TOKEN"])
+
 
 def wait_for_user_input
   Bot.on :message do |message|
@@ -35,6 +58,8 @@ def wait_for_user_input
             }
             ]
           )
+      when "How are you?", "how are you", "how are you?", "how r u", "how r u?"
+        message.reply(text: IDIOMS[:how_are_you])
       when /\sreal\b/
         message.reply(text: IDIOMS[:real])
       when /\sjoke\b/
@@ -77,8 +102,14 @@ def wait_for_user_input
         message.reply(text: IDIOMS[:the_best])
       when /\slast words\b/
         message.reply(text: IDIOMS[:last_words])
+      when "The Great Gatsby"
+        message.reply(text: IDIOMS[:gatsby])
+      when "Tender is the Night"
+          message.reply(text: IDIOMS[:tender])
+      when "This Side of Paradis..."
+          message.reply(text: IDIOMS[:paradise])
       else
-        message.reply(text: IDIOMS[:book_choice_respond])
+        message.reply(text: IDIOMS[:ask_again])
     end
   end
 end
@@ -102,26 +133,13 @@ IDIOMS = {
   real: "Action is character. So...yes.",
   joke: "Ernest Hemingway",
   the_best: "No kidding. Anything else you wanted to talk about?",
-  book_choice_respond: "Nice, I like that one, too. How can I help you today?",
-  last_words: "And so we beat on. Boats against the current. Borne back ceaselessly into the chats."
+  ask_again: "Alas, I don't quite understand your question. Ask me something else!",
+  last_words: "And so we beat on. Boats against the current. Borne back ceaselessly into the chats.",
+  gatsby: "Gatsby! What Gatsby? :) Jk, how can I help you today?",
+  tender: "There's no night more tender than the ones we spend together :) How can I help you today?",
+  paradise: "Good choice - may your life open up into an amazing burst of radiance :) How can I help you today?",
+  how_are_you: "Fine, lovely, tender--and I hope you are the same."
 }
-
-
-Bot.on :postback do |postback|
-  sender_id = postback.sender['id']
-  case postback.payload
-  when 'GREAT_GATSBY'
-    text = "Nice, I like that one, too. How can I help you today?"
-  when 'TENDER_NIGHT'
-    text = "Nice, I like that one, too. How can I help you today?"
-  when 'SIDE_PARADISE'
-    text = "Nice, I like that one, too. How can I help you today?"
-  end
-
-  postback.reply(
-    text: text
-  )
-end 
 
 
 wait_for_user_input
