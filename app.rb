@@ -9,5 +9,5 @@ get '/webhook' do
 end
 
 get "/" do
-  params['hub.challenge'] if ENV["VERIFY_TOKEN"] == params['hub.verify_token']
+  "Nothing to see here."
 end
