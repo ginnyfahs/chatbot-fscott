@@ -9,5 +9,5 @@ get '/webhook' do
 end
 
 get "/" do
-  "Nothing to see here"
+  "Nothing to see here."
 end
