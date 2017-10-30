@@ -37,7 +37,7 @@ def wait_for_user_input
     puts "Received '#{message.inspect}' from #{message.sender}" 
     message.typing_on
     case message.text
-      when "Hi", "hi", "hey", "Hey", "Yo", "yo", "hello"
+      when "Hi", "hi", "hey", "Hey", "Yo", "yo", "hello", "HI", "HEY", "YO", "HELLO"
         message.reply(text: IDIOMS[:greeting])
         message.reply(text: "I imagine you've read my stuff? Which book did you like best?",
           quick_replies: [
